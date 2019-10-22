@@ -1,160 +1,45 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace lab5
 {
-    interface IMyInterface
-    {
-        string MyFunc();
-    }
-
-    class Product
-    {
-        public string OrganizationName { get; set; }
-        public string ProductName { get; set; }
-
-        public Product()
-        {
-            OrganizationName = "NoName organization";
-            ProductName = "NoName product";
-        }
-
-        public Product(string organization, string product)
-        {
-            OrganizationName = organization;
-            ProductName = product;
-        }
-
-        public override bool Equals(object obj)
-        {
-            Product product = (Product)obj;
-            return ((this.OrganizationName == product.OrganizationName) && (this.ProductName == product.ProductName));
-        }
-
-        public override int GetHashCode()
-        {
-            return OrganizationName.GetHashCode() + ProductName.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return this.OrganizationName + " " + this.ProductName;
-        }
-    }
-
-    class Tech : Product
-    {
-        public string ManufacturerName { get; set; }
-        public Tech() : base()
-        {
-            ManufacturerName = "NoName Manufacturer";
-        }
-
-        public Tech(string organization, string product, string manufacturer) : base(organization, product)
-        {
-            ManufacturerName = manufacturer;
-        }
-
-        public override string ToString()
-        {
-            return base.ToString() + " " + this.ManufacturerName;
-        }
-    }
-
-    abstract class Computer : Tech
-    {
-        public string OS { get; set; }
-
-        public override string ToString()
-        {
-            return base.ToString() + " " + this.OS;
-        }
-
-        public Computer() : base()
-        {
-            OS = "NoName OS";
-        }
-
-        public Computer(string organization, string product, string manufacturer, string os) : base(organization, product, manufacturer)
-        {
-            OS = os;
-        }
-
-        public abstract string MyFunc();
-    }
-
-    sealed class Printer : Tech
-    {
-        public string IncType { get; set; }
-
-        public override string ToString()
-        {
-            return base.ToString() + " " + this.IncType;
-        }
-
-        public Printer() : base()
-        {
-            IncType = "NoName Inc";
-        }
-
-        public Printer(string organization, string product, string manufacturer, string inc) : base(organization, product, manufacturer)
-        {
-            IncType = inc;
-        }
-    }
-
-    class Scanner : Tech
-    {
-        public string DocType { get; set; }
-
-        public override string ToString()
-        {
-            return base.ToString() + " " + this.DocType;
-        }
-
-        public Scanner() : base()
-        {
-            DocType = "NoName DocType";
-        }
-
-        public Scanner(string organization, string product, string manufacturer, string doc) : base(organization, product, manufacturer)
-        {
-            DocType = doc;
-        }
-    }
-
-    class Tablet : Computer, IMyInterface
-    {
-        public string Resolution { get; set; }
-        public override string MyFunc()
-        {
-            return "Переопределение";
-        }
-        string IMyInterface.MyFunc()
-        {
-            return "Реализация функции интерфейса";
-        }
-
-        public override string ToString()
-        {
-            return base.ToString() + " " + this.Resolution;
-        }
-    }
-
     class Program
     {
         static void Main(string[] args)
         {
-            Product product = new Product("123", "213");
-            Tech tech = new Tech("456", "789", "456789");
-            Tablet tablet = new Tablet();
-            IMyInterface myInterface = tablet;
+            Bench bench1 = new Bench { name = "bench1", length = 23, mass = 15, width = 3 };
 
-            Console.WriteLine(product.ToString());
-            Console.WriteLine(tech.ToString());
-            Console.WriteLine(tablet.MyFunc());
-            Console.WriteLine(myInterface.MyFunc());
-            Console.WriteLine($"myInterface is IMyInterface = {myInterface is IMyInterface}");
-            Console.WriteLine($"myInterface is Tabet = {myInterface is Tablet}");
+            Console.WriteLine(bench1.Cost(2));
+
+            Tennis tennis1 = new Tennis { number = 3, name = "tennis1", mass = 10, radius = 5 };
+
+            Console.WriteLine(tennis1.Lifetime(5));             // методы абстрактного класса
+
+
+            tennis1.ToString();
+
+            set_of_classes ball1 = new set_of_classes();
+
+            //cube cub = new cube();
+            //cub.Print();
+            Class2 cl1 = new Class2();                              // объект для одноименный метод в интерфейсе и в абстрактном классе
+
+
+
+            Console.WriteLine(((Interface1)cl1).SUM(2, 3));         // одноименный метод в интерфейсе и в абстрактном классе
+
+            Printer pr = new Printer();       
+
+            Description[] arr = new Description[3] { bench1, tennis1,ball1 };
+            pr.IAmPrinting(arr[0]);
+            pr.IAmPrinting(arr[1]);
+            pr.IAmPrinting(arr[2]);
+
+            Console.ReadKey();
+
         }
     }
 }
